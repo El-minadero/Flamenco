@@ -5,12 +5,5 @@ Created on Oct 9, 2017
 '''
 
 class ControllerMain(object):
-    '''
-    classdocs
-    '''
-
-
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
+    def __init(self,controller):
+        pass 

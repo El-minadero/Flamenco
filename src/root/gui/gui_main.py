@@ -1,12 +1,6 @@
-'''
-Created on Oct 9, 2017
 
-@author: kevinmendoza
-'''
-
-if __name__ == '__main__':
-    pass
-
-
-class GuiMain():
-    pass
+from kivy.app import App
+class GuiMain(App):
+    
+    def __init(self,controller):
+        self.controller = controller

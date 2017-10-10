@@ -5,4 +5,5 @@ Created on Oct 9, 2017
 '''
 
 class DataBase():
-    pass
+    def __init(self,controller):
+        pass

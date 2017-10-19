@@ -1,9 +1,19 @@
 #:kivy 1.10.0
 
-<GuiMain>:
+<GuiMain@BoxLayout>:
     wheel: wheel
     canvas:
         Wheel:
             id: wheel
     
-    
+<Wheel>:
+    rgb: 50,50,50
+    x_position_fraction = 3
+    y_position_fraction = 2
+    x_width = 500
+    y_width = 500
+    canvas:
+        Ellipse:
+            pos: root.width/x_position_fraction - x_width/2, root.height/y_position_fraction - y_width/2
+            size: x_width, y_width
+        

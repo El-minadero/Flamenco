@@ -3,12 +3,9 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
-from root.gui.wheel import Wheel
 
 kivy.require("1.10.0")
 
-class PongGame(Widget):
-    pass
 
 class GuiMainApp(App):
     
@@ -18,10 +15,38 @@ class GuiMainApp(App):
         self.controller = controller
         
     def build(self):
-        return PongGame()
+        return Wheel()
         '''
         label = Label(text="SEAN")
         layout = BoxLayout()
         layout.add_widget(label, 0)
         return layout
         '''
+class Wheel(Widget):
+    '''
+       The All-Powerful Flamenco Wheel
+       Some functions that need defining:
+       -rotate forward,backward
+       
+       Some variables that need defining:
+       - family list
+       -
+    '''
+
+
+    def __init__(self,**kwargs):
+        '''
+        Constructor
+        '''
+        super().__init__(**kwargs)
+        print("making Wheel")
+        self._init_wheel(**kwargs)
+        
+    def _init_wheel(self,**kwargs):
+        if kwargs is None:
+            pass
+        else:
+            pass
+            
+    def _rotate(self):
+        pass

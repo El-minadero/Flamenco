@@ -9,6 +9,6 @@ from root.data_base.data_main           import DataBase
 
 if __name__ == '__main__':
     controller  = ControllerMain()
-    guiMain     = GuiMainApp(controller)
+    guiMain     = GuiMainApp(controller=controller)
     dataBase    = DataBase(controller)
     guiMain.run()

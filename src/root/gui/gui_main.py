@@ -9,20 +9,31 @@ kivy.require("1.10.0")
 
 class GuiMainApp(App):
     
-    def __init__(self,controller,**kwargs):
-        super().__init__(**kwargs)
-        self.wheel      = Wheel(**kwargs)
-        self.controller = controller
+    def __init__(self,**kwargs):
+        super().__init__()
+        self.wheel      = WheelRoot(**kwargs)
         
     def build(self):
-        return Wheel()
+        return self.wheel
         '''
         label = Label(text="SEAN")
         layout = BoxLayout()
         layout.add_widget(label, 0)
         return layout
         '''
-class Wheel(Widget):
+class AbstractSpoke():
+    
+    def __init__(self,**kwargs):
+        self.controller = kwargs["controller"]
+        self.name       = kwargs["name"]
+        
+    def _rotate(self,angle):
+        pass
+            
+    def set_selection(self):
+        self.controller.setSelection(self.name)
+        
+class WheelRoot(Widget,AbstractSpoke):
     '''
        The All-Powerful Flamenco Wheel
        Some functions that need defining:
@@ -33,20 +44,44 @@ class Wheel(Widget):
        -
     '''
 
-
     def __init__(self,**kwargs):
-        '''
-        Constructor
-        '''
+        kwargs["name"] = "root"
         super().__init__(**kwargs)
-        print("making Wheel")
+        kwargs.pop("name",None)
         self._init_wheel(**kwargs)
         
     def _init_wheel(self,**kwargs):
-        if kwargs is None:
-            pass
-        else:
-            pass
+        self.spokes     =   []
+        controller      =   kwargs["controller"]
+        spoke_dict      =   self.controller.get_spoke_dict_list()
+        divs            =   len(spoke_dict)
+        delta_theta     =   360/divs
+        spoke_dict      =   self.controller.get_spoke_dict_list()
+        for i in range(0,divs):
+            start_angle = i*delta_theta
+            spoke       = Spoke(angle=start_angle,delta_theta=delta_theta,controller=controller,**spoke_dict[i])
+            self.spokes.append(spoke)
+            print(spoke.toString())
             
-    def _rotate(self):
-        pass
+    def rotate(self,angle):
+        self._rotate(angle)
+        for spoke in self.spokes:
+            spoke.rotate(angle)
+    
+class Spoke(Widget,AbstractSpoke):
+    
+    def __init__(self,**kwargs):
+        super().__init__(**kwargs)
+        self._init_self_properties(**kwargs)
+        self._init_children(**kwargs)
+        
+    def _init_self_properties(self,**kwargs):
+        self.angle          = kwargs["angle"]
+        self.delta_theta    = kwargs["delta_theta"]
+        
+    def rotate(self,angle):
+        self._rotate(angle)
+        
+    def toString(self):
+        output = "angle:" + str(self.angle) + " dtheta:" + str(self.delta_theta) + " name:" + str(self.name)
+        return output
